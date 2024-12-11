@@ -47,7 +47,7 @@ class TransactionManager
     }
 
     // 排序交易 cmp可選{"time","desc","amount","type","tag"}
-    public static void Sort(List<Transaction> transactions, string cmp)
+    public static List<Transaction> Sort(List<Transaction> transactions, string cmp)
     {
         switch (cmp)
         {
@@ -67,10 +67,12 @@ class TransactionManager
                 transactions.Sort((x, y) => x.Tag.CompareTo(y.Tag));
                 break;
         }
+
+        return transactions;
     }
 
     // 排序當日交易
-    public void Sort(string cmp) { Sort(this.Transactions, cmp); }
+    public List<Transaction> Sort(string cmp) { return Sort(this.Transactions, cmp); }
 
     // 過濾交易 收入/支出
     public static List<Transaction> Filter(List<Transaction> transactions, TransactionType type)
