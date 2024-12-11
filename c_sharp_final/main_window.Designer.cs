@@ -30,6 +30,7 @@ namespace c_sharp_final
         private void InitializeComponent()
         {
             this.date_box = new System.Windows.Forms.ListView();
+            this.month_data_box = new System.Windows.Forms.ListView();
             this.income_text = new System.Windows.Forms.Label();
             this.outcome_text = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -57,6 +58,17 @@ namespace c_sharp_final
             this.date_box.TabIndex = 0;
             this.date_box.UseCompatibleStateImageBehavior = false;
             this.date_box.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // month_data_box
+            // 
+            this.month_data_box.HideSelection = false;
+            this.month_data_box.Location = new System.Drawing.Point(506, 10);
+            this.month_data_box.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.month_data_box.Name = "month_data_box";
+            this.month_data_box.Size = new System.Drawing.Size(260, 642);
+            this.month_data_box.TabIndex = 1;
+            this.month_data_box.UseCompatibleStateImageBehavior = false;
+            this.month_data_box.SelectedIndexChanged += new System.EventHandler(this.month_data_box_SelectedIndexChanged);
             // 
             // income_text
             // 
@@ -235,6 +247,7 @@ namespace c_sharp_final
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.outcome_text);
             this.Controls.Add(this.income_text);
+            this.Controls.Add(this.month_data_box);
             this.Controls.Add(this.date_box);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "main_window";
@@ -247,6 +260,7 @@ namespace c_sharp_final
         #endregion
 
         private System.Windows.Forms.ListView date_box;
+        private System.Windows.Forms.ListView month_data_box;
         private System.Windows.Forms.Label income_text;
         private System.Windows.Forms.Label outcome_text;
         private System.Windows.Forms.ListView listView1;

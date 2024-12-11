@@ -59,7 +59,7 @@ namespace c_sharp_final
 
             year_box.Text = year_now.ToString();
             month_box.Text = month_now.ToString();
-
+            
             total_in = 0;
             total_out = 0;
             
