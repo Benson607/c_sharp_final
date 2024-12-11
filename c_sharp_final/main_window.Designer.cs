@@ -33,10 +33,10 @@ namespace c_sharp_final
             this.income_text = new System.Windows.Forms.Label();
             this.outcome_text = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tag_chooser = new System.Windows.Forms.ComboBox();
             this.data_list_box = new System.Windows.Forms.ListBox();
-            this.cancel_button = new System.Windows.Forms.Button();
-            this.check_button = new System.Windows.Forms.Button();
+            this.del_button = new System.Windows.Forms.Button();
+            this.add_button = new System.Windows.Forms.Button();
             this.month_down_button = new System.Windows.Forms.Button();
             this.month_up_button = new System.Windows.Forms.Button();
             this.year_box = new System.Windows.Forms.Label();
@@ -94,16 +94,16 @@ namespace c_sharp_final
             this.listView1.TabIndex = 4;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
-            // comboBox1
+            // tag_chooser
             // 
-            this.comboBox1.Font = new System.Drawing.Font("新細明體", 20F);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(950, 187);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(129, 35);
-            this.comboBox1.TabIndex = 5;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.tag_chooser.Font = new System.Drawing.Font("新細明體", 20F);
+            this.tag_chooser.FormattingEnabled = true;
+            this.tag_chooser.Location = new System.Drawing.Point(950, 187);
+            this.tag_chooser.Margin = new System.Windows.Forms.Padding(2);
+            this.tag_chooser.Name = "tag_chooser";
+            this.tag_chooser.Size = new System.Drawing.Size(129, 35);
+            this.tag_chooser.TabIndex = 5;
+            this.tag_chooser.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // data_list_box
             // 
@@ -115,25 +115,27 @@ namespace c_sharp_final
             this.data_list_box.Size = new System.Drawing.Size(423, 400);
             this.data_list_box.TabIndex = 7;
             // 
-            // cancel_button
+            // del_button
             // 
-            this.cancel_button.Location = new System.Drawing.Point(1214, 449);
-            this.cancel_button.Margin = new System.Windows.Forms.Padding(2);
-            this.cancel_button.Name = "cancel_button";
-            this.cancel_button.Size = new System.Drawing.Size(117, 85);
-            this.cancel_button.TabIndex = 8;
-            this.cancel_button.Text = "cancel";
-            this.cancel_button.UseVisualStyleBackColor = true;
+            this.del_button.Location = new System.Drawing.Point(1214, 449);
+            this.del_button.Margin = new System.Windows.Forms.Padding(2);
+            this.del_button.Name = "del_button";
+            this.del_button.Size = new System.Drawing.Size(117, 85);
+            this.del_button.TabIndex = 8;
+            this.del_button.Text = "刪除";
+            this.del_button.UseVisualStyleBackColor = true;
+            this.del_button.Click += new System.EventHandler(this.del_button_Click);
             // 
-            // check_button
+            // add_button
             // 
-            this.check_button.Location = new System.Drawing.Point(1214, 538);
-            this.check_button.Margin = new System.Windows.Forms.Padding(2);
-            this.check_button.Name = "check_button";
-            this.check_button.Size = new System.Drawing.Size(117, 85);
-            this.check_button.TabIndex = 9;
-            this.check_button.Text = "check";
-            this.check_button.UseVisualStyleBackColor = true;
+            this.add_button.Location = new System.Drawing.Point(1214, 538);
+            this.add_button.Margin = new System.Windows.Forms.Padding(2);
+            this.add_button.Name = "add_button";
+            this.add_button.Size = new System.Drawing.Size(117, 85);
+            this.add_button.TabIndex = 9;
+            this.add_button.Text = "新增";
+            this.add_button.UseVisualStyleBackColor = true;
+            this.add_button.Click += new System.EventHandler(this.add_button_Click);
             // 
             // month_down_button
             // 
@@ -211,9 +213,9 @@ namespace c_sharp_final
             // mask
             // 
             this.mask.Enabled = false;
-            this.mask.Location = new System.Drawing.Point(10, 9);
+            this.mask.Location = new System.Drawing.Point(1, 9);
             this.mask.Name = "mask";
-            this.mask.Size = new System.Drawing.Size(1342, 644);
+            this.mask.Size = new System.Drawing.Size(1355, 645);
             this.mask.TabIndex = 60;
             // 
             // main_window
@@ -229,10 +231,10 @@ namespace c_sharp_final
             this.Controls.Add(this.year_box);
             this.Controls.Add(this.month_up_button);
             this.Controls.Add(this.month_down_button);
-            this.Controls.Add(this.check_button);
-            this.Controls.Add(this.cancel_button);
+            this.Controls.Add(this.add_button);
+            this.Controls.Add(this.del_button);
             this.Controls.Add(this.data_list_box);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.tag_chooser);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.outcome_text);
             this.Controls.Add(this.income_text);
@@ -252,10 +254,10 @@ namespace c_sharp_final
         private System.Windows.Forms.Label income_text;
         private System.Windows.Forms.Label outcome_text;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox tag_chooser;
         private System.Windows.Forms.ListBox data_list_box;
-        private System.Windows.Forms.Button cancel_button;
-        private System.Windows.Forms.Button check_button;
+        private System.Windows.Forms.Button del_button;
+        private System.Windows.Forms.Button add_button;
         private System.Windows.Forms.Button month_down_button;
         private System.Windows.Forms.Button month_up_button;
         private System.Windows.Forms.Label year_box;

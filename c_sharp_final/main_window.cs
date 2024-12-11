@@ -32,6 +32,8 @@ namespace c_sharp_final
         FormLogin login_window;
         FormRegister register_window;
 
+        Add_window add_window;
+
         public main_window()
         {
             InitializeComponent();
@@ -46,7 +48,10 @@ namespace c_sharp_final
             register_window.to_login += to_login;
 
             register_window.Show();
-            
+
+            add_window = new Add_window();
+            add_window.call_back += add_call_back;
+
             show_mode = 0;
             
             DateTime now = DateTime.Now;
@@ -269,6 +274,44 @@ namespace c_sharp_final
             login_window.Hide();
             register_window.Hide();
             mask.Hide();
+        }
+
+        private void add_call_back(Object sender, EventArgs e)
+        {
+            for (int i = 0; i < 42; i++)
+            {
+                button_arr[i].Enabled = true;
+            }
+            month_up_button.Enabled = true;
+            month_down_button.Enabled = true;
+            in_out_switch.Enabled = true;
+            tag_chooser.Enabled = true;
+            del_button.Enabled = true;
+            add_button.Enabled = true;
+            month_data_box.Enabled = true;
+            data_list_box.Enabled = true;
+        }
+
+        private void del_button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void add_button_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 42; i++)
+            {
+                button_arr[i].Enabled = false;
+            }
+            month_up_button.Enabled = false;
+            month_down_button.Enabled = false;
+            in_out_switch.Enabled = false;
+            tag_chooser.Enabled = false;
+            del_button.Enabled = false;
+            add_button.Enabled = false;
+            month_data_box.Enabled = false;
+            data_list_box.Enabled = false;
+            add_window.Show();
         }
     }
 }

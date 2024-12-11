@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add_window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add_window.Designer.cs">
+      <DependentUpon>Add_window.cs</DependentUpon>
+    </Compile>
     <Compile Include="data.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -70,6 +76,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Add_window.resx">
+      <DependentUpon>Add_window.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
