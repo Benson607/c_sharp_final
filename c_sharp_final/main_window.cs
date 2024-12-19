@@ -178,7 +178,7 @@ namespace c_sharp_final
             data_list_box.Items.Clear();
             foreach (var trans in transactions)
             {
-                data_list_box.Items.Add($"{trans.Time} - {trans.Desc} - {trans.Amount} - {trans.Tag}");
+                data_list_box.Items.Add($"{trans.Time} - {trans.Desc} - {trans.Amount} - {trans.Tag} - {trans.Type}");
             }
         }
 
@@ -186,6 +186,7 @@ namespace c_sharp_final
         {
             Dictionary<DateTime, List<Transaction>> month_trans = TransactionManager.GetMonthTransactions(new DateTime(year_choose, month_choose, 1));
             month_data_box.Items.Clear();
+            month_income_data_box.Items.Clear();
             total_in = 0;
             total_out = 0;
             foreach (var month_tran in month_trans)
@@ -368,7 +369,15 @@ namespace c_sharp_final
                 del_transaction.Time = new TimeSpan(Convert.ToInt32(date[0]), Convert.ToInt32(date[1]), Convert.ToInt32(date[2]));
                 del_transaction.Desc = del_item[1];
                 del_transaction.Amount = Convert.ToInt32(del_item[2]);
-                del_transaction.Type = TransactionType.INCOME;
+
+                if (del_item[4] == "INCOME")
+                {
+                    del_transaction.Type = TransactionType.INCOME;
+                }
+                else
+                {
+                    del_transaction.Type = TransactionType.OUTCOME;
+                }
 
                 switch (del_item[3])
                 {
@@ -392,6 +401,9 @@ namespace c_sharp_final
                 }
                 
                 trans_manager.DeleteTransaction(del_transaction);
+                
+                update_day_list();
+                update_month();
             }
         }
 

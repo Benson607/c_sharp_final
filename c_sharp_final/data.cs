@@ -98,11 +98,22 @@ class TransactionManager
     public void AppendTransaction(Transaction trans)
     {
         this.Transactions.Add(trans);
+        this.SaveDate(this.Date);
     }
 
-    public void DeleteTransaction(Transaction trans)
+    //public void DeleteTransaction(Transaction trans)
+    //{
+    //    this.Transactions.Remove(trans);
+    //}
+
+    public bool DeleteTransaction(Transaction trans)
     {
-        this.Transactions.Remove(trans);
+        bool ans = this.Transactions.Remove(trans);
+        if (ans)
+        {
+            this.SaveDate(this.Date);
+        }
+        return ans;
     }
 
     static private string LoadDate(string date)
