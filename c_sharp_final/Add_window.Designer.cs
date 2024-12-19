@@ -32,13 +32,16 @@ namespace c_sharp_final
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.time_input = new System.Windows.Forms.TextBox();
+            this.hour_input = new System.Windows.Forms.TextBox();
             this.amount_input = new System.Windows.Forms.TextBox();
             this.tag_chooser = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.text_input = new System.Windows.Forms.TextBox();
             this.check_button = new System.Windows.Forms.Button();
             this.cancel_button = new System.Windows.Forms.Button();
+            this.in_out_choose_button = new System.Windows.Forms.Button();
+            this.minute_input = new System.Windows.Forms.TextBox();
+            this.label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -46,9 +49,9 @@ namespace c_sharp_final
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.Size = new System.Drawing.Size(17, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "時間";
+            this.label1.Text = "時";
             // 
             // label2
             // 
@@ -68,12 +71,12 @@ namespace c_sharp_final
             this.label3.TabIndex = 2;
             this.label3.Text = "標籤";
             // 
-            // time_input
+            // hour_input
             // 
-            this.time_input.Location = new System.Drawing.Point(14, 24);
-            this.time_input.Name = "time_input";
-            this.time_input.Size = new System.Drawing.Size(100, 22);
-            this.time_input.TabIndex = 3;
+            this.hour_input.Location = new System.Drawing.Point(14, 24);
+            this.hour_input.Name = "hour_input";
+            this.hour_input.Size = new System.Drawing.Size(49, 22);
+            this.hour_input.TabIndex = 3;
             // 
             // amount_input
             // 
@@ -85,6 +88,12 @@ namespace c_sharp_final
             // tag_chooser
             // 
             this.tag_chooser.FormattingEnabled = true;
+            this.tag_chooser.Items.AddRange(new object[] {
+            "伙食費",
+            "交通費",
+            "娛樂費",
+            "生活用品費",
+            "其他費用"});
             this.tag_chooser.Location = new System.Drawing.Point(226, 24);
             this.tag_chooser.Name = "tag_chooser";
             this.tag_chooser.Size = new System.Drawing.Size(100, 20);
@@ -126,18 +135,47 @@ namespace c_sharp_final
             this.cancel_button.UseVisualStyleBackColor = true;
             this.cancel_button.Click += new System.EventHandler(this.button2_Click);
             // 
+            // in_out_choose_button
+            // 
+            this.in_out_choose_button.Location = new System.Drawing.Point(332, 24);
+            this.in_out_choose_button.Name = "in_out_choose_button";
+            this.in_out_choose_button.Size = new System.Drawing.Size(75, 20);
+            this.in_out_choose_button.TabIndex = 10;
+            this.in_out_choose_button.Text = "收入";
+            this.in_out_choose_button.UseVisualStyleBackColor = true;
+            this.in_out_choose_button.Click += new System.EventHandler(this.in_out_choose_button_Click);
+            // 
+            // minute_input
+            // 
+            this.minute_input.Location = new System.Drawing.Point(64, 24);
+            this.minute_input.Name = "minute_input";
+            this.minute_input.Size = new System.Drawing.Size(50, 22);
+            this.minute_input.TabIndex = 11;
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Location = new System.Drawing.Point(62, 9);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(17, 12);
+            this.label.TabIndex = 12;
+            this.label.Text = "分";
+            // 
             // Add_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 130);
+            this.Controls.Add(this.label);
+            this.Controls.Add(this.minute_input);
+            this.Controls.Add(this.in_out_choose_button);
             this.Controls.Add(this.cancel_button);
             this.Controls.Add(this.check_button);
             this.Controls.Add(this.text_input);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tag_chooser);
             this.Controls.Add(this.amount_input);
-            this.Controls.Add(this.time_input);
+            this.Controls.Add(this.hour_input);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -153,12 +191,15 @@ namespace c_sharp_final
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox time_input;
+        private System.Windows.Forms.TextBox hour_input;
         private System.Windows.Forms.TextBox amount_input;
         private System.Windows.Forms.ComboBox tag_chooser;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox text_input;
         private System.Windows.Forms.Button check_button;
         private System.Windows.Forms.Button cancel_button;
+        private System.Windows.Forms.Button in_out_choose_button;
+        private System.Windows.Forms.TextBox minute_input;
+        private System.Windows.Forms.Label label;
     }
 }

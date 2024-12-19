@@ -38,6 +38,9 @@ namespace c_sharp_final
         {
             InitializeComponent();
 
+            mask.Location = new Point(10, 10);
+            mask.Size = new Size(1352, 652);
+
             trans_manager = new TransactionManager();
 
             login_window = new FormLogin();
@@ -62,8 +65,7 @@ namespace c_sharp_final
             month_choose = month_now;
             day_choose = 0;
 
-            year_box.Text = year_now.ToString();
-            month_box.Text = month_now.ToString();
+            month_box.Text = $"{year_now.ToString()} 年 {month_now.ToString()} 月";
             
             total_in = 0;
             total_out = 0;
@@ -130,7 +132,7 @@ namespace c_sharp_final
                 button_arr[day_choose + (int)new DateTime(year_choose, month_choose, 1).DayOfWeek - 1].BackColor = Color.White;
             }
             day_choose = Convert.ToInt32(button.Text);
-            button_arr[day_choose + (int)new DateTime(year_choose, month_choose, 1).DayOfWeek - 1].BackColor = Color.Red;
+            button_arr[day_choose + (int)new DateTime(year_choose, month_choose, 1).DayOfWeek - 1].BackColor = Color.FromArgb(116, 86, 174);
 
             update_day_list();
         }
@@ -138,9 +140,43 @@ namespace c_sharp_final
         private void update_day_list()
         {
             trans_manager.ChangeDate(new DateTime(year_choose, month_choose, day_choose));
+            List<Transaction> transactions = trans_manager.Transactions;
+
+            switch (tag_chooser.Text)
+            {
+                case "伙食費":
+                    transactions = TransactionManager.Filter(transactions, TransactionTag.FOOD);
+                    break;
+                case "交通費":
+                    transactions = TransactionManager.Filter(transactions, TransactionTag.TRANSPORTATION);
+                    break;
+                case "娛樂費":
+                    transactions = TransactionManager.Filter(transactions, TransactionTag.ENTERTAINMENT);
+                    break;
+                case "生活用品費":
+                    transactions = TransactionManager.Filter(transactions, TransactionTag.DAILY);
+                    break;
+                case "其他費用":
+                    transactions = TransactionManager.Filter(transactions, TransactionTag.OTHER);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (show_mode)
+            {
+                case 1:
+                    transactions = TransactionManager.Filter(transactions, TransactionType.INCOME);
+                    break;
+                case 2:
+                    transactions = TransactionManager.Filter(transactions, TransactionType.OUTCOME);
+                    break;
+                default:
+                    break;
+            }
 
             data_list_box.Items.Clear();
-            foreach (var trans in trans_manager.Transactions)
+            foreach (var trans in transactions)
             {
                 data_list_box.Items.Add($"{trans.Time} - {trans.Desc} - {trans.Amount} - {trans.Tag}");
             }
@@ -156,19 +192,20 @@ namespace c_sharp_final
             {
                 foreach (var trans in month_tran.Value)
                 {
-                    month_data_box.Items.Add($"{trans.Time} - {trans.Desc} - {trans.Amount} - {trans.Tag}");
-                    if (trans.Amount > 0)
+                    if (trans.Type == TransactionType.INCOME)
                     {
+                        month_income_data_box.Items.Add($"{month_tran.Key.ToString("dd")} - {trans.Time} - {trans.Desc} - {trans.Amount} - {trans.Tag}");
                         total_in += trans.Amount;
                     }
-                    if (trans.Amount < 0)
+                    if (trans.Type == TransactionType.OUTCOME)
                     {
+                        month_data_box.Items.Add($"{month_tran.Key.ToString("dd")} - {trans.Time} - {trans.Desc} - {trans.Amount} - {trans.Tag}");
                         total_out += trans.Amount;
                     }
                 }
             }
-            income_text.Text = total_in.ToString();
-            outcome_text.Text = total_out.ToString();
+            income_text.Text = $"本月總收入: {total_in.ToString()}";
+            outcome_text.Text = $"本月總支出: {total_out.ToString()}";
         }
 
         private void income_Click(object sender, EventArgs e)
@@ -193,7 +230,11 @@ namespace c_sharp_final
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (day_choose == 0)
+            {
+                return;
+            }
+            update_day_list();
         }
 
         private void month_data_box_SelectedIndexChanged(object sender, EventArgs e)
@@ -225,6 +266,11 @@ namespace c_sharp_final
             {
                 in_out_switch.Text = "顯示條件:僅支出";
             }
+            if (day_choose == 0)
+            {
+                return;
+            }
+            update_day_list();
         }
 
         private void month_up_button_Click(object sender, EventArgs e)
@@ -234,9 +280,8 @@ namespace c_sharp_final
             {
                 month_choose = 1;
                 year_choose++;
-                year_box.Text = year_choose.ToString();
             }
-            month_box.Text = month_choose.ToString();
+            month_box.Text = $"{year_choose.ToString()} 年 {month_choose.ToString()} 月";
             data_list_box.Items.Clear();
             update_button();
             update_month();
@@ -249,9 +294,8 @@ namespace c_sharp_final
             {
                 month_choose = 12;
                 year_choose--;
-                year_box.Text = year_choose.ToString();
             }
-            month_box.Text = month_choose.ToString();
+            month_box.Text = $"{year_choose.ToString()} 年 {month_choose.ToString()} 月";
             data_list_box.Items.Clear();
             update_button();
             update_month();
@@ -290,15 +334,73 @@ namespace c_sharp_final
             add_button.Enabled = true;
             month_data_box.Enabled = true;
             data_list_box.Enabled = true;
+            
+            if (add_window.data[0] == "0")
+            {
+                return;
+            }
+
+            Transaction new_item = default(Transaction);
+            new_item.Time = new TimeSpan(Convert.ToInt32(add_window.data[1]), Convert.ToInt32(add_window.data[2]), 0);
+            new_item.Desc = add_window.data[3];
+            new_item.Amount = Convert.ToInt32(add_window.data[4]);
+            new_item.Type = (TransactionType)Convert.ToInt32(add_window.data[5]);
+            new_item.Tag = (TransactionTag)Convert.ToInt32(add_window.data[6]);
+
+            trans_manager.AppendTransaction(new_item);
+            update_month();
+            update_day_list();
         }
 
         private void del_button_Click(object sender, EventArgs e)
         {
+            if (day_choose == 0)
+            {
+                return;
+            }
+            string select = data_list_box.SelectedItem as string;
+            if (select != null)
+            {
+                string[] del_item = select.Split(new string[] { " - " }, StringSplitOptions.None);
+                string[] date = del_item[0].Split(new string[] { ":" }, StringSplitOptions.None);
 
+                Transaction del_transaction = default(Transaction);
+                del_transaction.Time = new TimeSpan(Convert.ToInt32(date[0]), Convert.ToInt32(date[1]), Convert.ToInt32(date[2]));
+                del_transaction.Desc = del_item[1];
+                del_transaction.Amount = Convert.ToInt32(del_item[2]);
+                del_transaction.Type = TransactionType.INCOME;
+
+                switch (del_item[3])
+                {
+                    case "FOOD":
+                        del_transaction.Tag = TransactionTag.FOOD;
+                        break;
+                    case "TRANSPORTATION":
+                        del_transaction.Tag = TransactionTag.TRANSPORTATION;
+                        break;
+                    case "ENTERTAINMENT":
+                        del_transaction.Tag = TransactionTag.ENTERTAINMENT;
+                        break;
+                    case "DAILY":
+                        del_transaction.Tag = TransactionTag.DAILY;
+                        break;
+                    case "OTHER":
+                        del_transaction.Tag = TransactionTag.OTHER;
+                        break;
+                    default:
+                        break;
+                }
+                
+                trans_manager.DeleteTransaction(del_transaction);
+            }
         }
 
         private void add_button_Click(object sender, EventArgs e)
         {
+            if (day_choose == 0)
+            {
+                return;
+            }
             for (int i = 0; i < 42; i++)
             {
                 button_arr[i].Enabled = false;
